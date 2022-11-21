@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="How the blog works ?" />
+		<title>Blog-Doc | The blog</title>
+		
+		<link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+			integrity="sha256-AXV9/14XTNljCQp7u3n02VIiYAICq8ocXkc11rvMlSw="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="css/styles.min.css" />
+		<link rel="stylesheet" href="css/code-theme.min.css" />
+		
+	</head>
+	<body>
+    
+<style>
+	.post-header {
+		background-image: url("./images/the-blog.webp");
+	}
+</style>
+
+<style>
+	.post-header {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	.post-header .overlay {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	.post-header .overlay h1,
+	.post-header .overlay h2 {
+		color: #fff;
+	}
+	@media (min-width: 48em) {
+		.post-header .overlay {
+			display: inline-block;
+			width: 50%;
+		}
+	}
+</style>
+
+
+<div id="layout">
+	
+<span id="menuLink" class="menu-link" tabindex="0">
+	
+	<span></span>
+</span>
+
+
+<div id="menu">
+	<div class="pure-menu">
+		<a href="/" class="pure-menu-heading">BLOG-DOC</a>
+
+		<ul class="pure-menu-list">
+			<li class="pure-menu-item">
+				<a 
+					href="/archive.html"  class="pure-menu-link">Archive
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/tags.html"  class="pure-menu-link">Tags
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/install-blog-doc.html" 
+					class="pure-menu-link">Install
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/license.html"  class="pure-menu-link">License
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+ 
+	<div id="main">
+		<!-- Post header -->
+		
+		<div class="header post-header">
+			<div class="overlay">
+				<h1>The blog</h1>
+				<h2>How the blog works ?</h2>
+			</div>
+		</div>
+		 
+		<div class="content">
+			<p class="post-meta">
+				<span>Posted on</span>
+				<span class="posted-on"><time class="post-date">2022/10/05</time></span>
+				
+				<br />
+				<span>Tagged</span>
+				
+				<a href="/tags/Blog-Doc" class="post-tag">Blog-Doc</a>
+				
+				<a href="/tags/Blog" class="post-tag">Blog</a>
+				 
+			</p>
+			<div><p>This post is an introduction to the blog design and functionalities. We'll explore how things are related and how they work together. We'll understand what's mandatory for the blog to work properly and what's optional.</p>
+<h2>Blog's design &amp; functionalities</h2>
+<p>You'll notice that the homepage, dedicated to the blog, shares with the archive page and the page of a particular tag almost the same design. They give us a view of existing posts, however their designs are slightly different, only the blog is paginated.</p>
+<p>The blog sorts your posts by their publication's dates in descending order, newest to oldest, and displays only five posts on each page. <strong>The blog will not be paginated if the number of posts is less then five !</strong></p>
+<h2>Single post preview</h2>
+<p>Each post in the blog is represented by a card like the following one :</p>
+<img class="pure-img-responsive" alt="Screenshot of a single post card in the blog" src="/images/screenshot-card-blog.png">
+<p>First things first, the design of this card is the work of <a href="https://codepen.io/ChynoDeluxe">Chyno Deluxe</a> that you can find on his <a href="https://codepen.io/ChynoDeluxe/pen/bdXeqQ">Blog Cards</a> pen.<br>
+The card is composed of two parts:</p>
+<ol>
+<li>A featured image of the post</li>
+<li>A brief preview of the post</li>
+</ol>
+<p><strong>The featured image is optional</strong>. If you don't assign a featured image to a post, a fallback image will be displayed. This fallback image can of course be changed depending on your needs.<br>
+To change the fallback image :</p>
+<ol>
+<li>Put your own image under the <strong>images</strong> folder located in the <strong>public</strong> folder.</li>
+<li>Open the <strong>singlePostPreview.ejs</strong> file located in the <strong>components</strong> folder under the <strong>views</strong> folder. On line 30, replace the path to the <code class="hljs"><span class="hljs-attribute">postFeaturedImage</span></code>. In other words, on line 30, replace <code class="hljs">graphic-of-white-camera-on-black-background-no-image-available.webp</code> by the filename of your image.</li>
+</ol>
+<h3>Publishing date &amp; tag(s)</h3>
+<p>When the preview of a single post is hovered, a zoom in with a little rotation is applied to the featured image while it gets covered by an overlay.<br>
+The overlay reveals the publishing date of the post and the tag(s) associated to this post <strong>if any</strong>. Yes, <strong>if any means that you can choose to tag or not any post</strong>, tagging a post is an optional feature while giving it a <strong>publishing date is mandatory</strong>, some logic please !</p>
+<p>The hovered card will look like the following image :</p>
+<img class="pure-img-responsive" alt="Screenshot of a hovered single post card in the blog" src="/images/screenshot-card-blog-hovered.png">
+<h3>Brief preview</h3>
+<p>The right section of the card contains the post's <strong>title</strong>, <strong>description</strong>, first <strong>180 characters</strong>, and a <strong>Read the post</strong> button linking to the post itself, just like it's title.<br>
+When this button is hovered, the previous effects are applied and the button expands a little bit to the left, gets a blue background while it's label becomes white and an arrow takes the available space to the right, like the following image :</p>
+<img class="pure-img-responsive" alt="Screenshot of a hovered button of a single post card in the blog" src="/images/screenshot-card-blog-read-hovered.png">
+<h2>Pagination</h2>
+<p>Like explained previously, the pagination will only work if your blog contains more than 5 posts. Once this number exceeded, a pagination will be displayed at the bottom of each blog's page.</p>
+<p>The homepage will have a pagination to the <strong>Older Posts</strong>, page 1 of the blog, as well as a left chevron icon linking to the last page of the blog.<br>
+The last page of the blog will have a pagination to the <strong>Newer Posts</strong>, as well as a right chevron icon linking to the first page of the blog.<br>
+In between, every other page of the blog will have a pagination to the <strong>Older Posts</strong>, the <strong>Newer Posts</strong>, a left chevron icon linking to the last page of the blog and a right chevron icon linking to the first page of the blog.</p>
+<p>This one ends here, I'll be talking more about the pagination later on.</p>
+<p>See you in the next one 😉</p>
+</div>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<p class="copyright">
+				App built with ❤️ by
+				<a href="https://lebcit.github.io/">LebCit</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+

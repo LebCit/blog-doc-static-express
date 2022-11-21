@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Archive and tags pages" />
+		<title>Blog-Doc | Archive and tags</title>
+		
+		<link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+			integrity="sha256-AXV9/14XTNljCQp7u3n02VIiYAICq8ocXkc11rvMlSw="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="css/styles.min.css" />
+		<link rel="stylesheet" href="css/code-theme.min.css" />
+		
+	</head>
+	<body>
+    
+<style>
+	.post-header {
+		background-image: url("./images/archive-and-tags.webp");
+	}
+</style>
+
+<style>
+	.post-header {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	.post-header .overlay {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	.post-header .overlay h1,
+	.post-header .overlay h2 {
+		color: #fff;
+	}
+	@media (min-width: 48em) {
+		.post-header .overlay {
+			display: inline-block;
+			width: 50%;
+		}
+	}
+</style>
+
+
+<div id="layout">
+	
+<span id="menuLink" class="menu-link" tabindex="0">
+	
+	<span></span>
+</span>
+
+
+<div id="menu">
+	<div class="pure-menu">
+		<a href="/" class="pure-menu-heading">BLOG-DOC</a>
+
+		<ul class="pure-menu-list">
+			<li class="pure-menu-item">
+				<a 
+					href="/archive.html"  class="pure-menu-link">Archive
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/tags.html"  class="pure-menu-link">Tags
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/install-blog-doc.html" 
+					class="pure-menu-link">Install
+				</a>
+			</li>
+
+			<li class="pure-menu-item">
+				<a 
+					href="/license.html"  class="pure-menu-link">License
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+ 
+	<div id="main">
+		<!-- Post header -->
+		
+		<div class="header post-header">
+			<div class="overlay">
+				<h1>Archive and tags</h1>
+				<h2>Archive and tags pages</h2>
+			</div>
+		</div>
+		 
+		<div class="content">
+			<p class="post-meta">
+				<span>Posted on</span>
+				<span class="posted-on"><time class="post-date">2022/10/20</time></span>
+				
+				<br />
+				<span>Tagged</span>
+				
+				<a href="/tags/Archive" class="post-tag">Archive</a>
+				
+				<a href="/tags/Tags" class="post-tag">Tags</a>
+				
+				<a href="/tags/Blog-Doc" class="post-tag">Blog-Doc</a>
+				 
+			</p>
+			<div><p>The archive and tags pages are very similar to the blog as mentioned before, except that they have no pagination. The archive is a reversed chronological list of all the posts in the blog, while the tags is an alphabetical ordered list of all the tags used in all the posts with the number of occurrence for each tag.<br>
+In this post, we'll explore how those pages work behind the scene aka server-side.</p>
+<h2>Archive route</h2>
+<p>Under the <strong>routes</strong> folder, the first file is <strong>archiveRoute.js</strong>. This tiny file collects all the posts and displays them on the <code class="hljs">/archive</code> route using the <strong>postsList.ejs</strong> template located in the <strong>layouts</strong> folder under the <strong>views</strong> folder.</p>
+<p>To understand the archive route file, you'll have to read the following posts :</p>
+<ol>
+<li><a href="https://lebcit.github.io/posts/express-global-router-for-a-dry-code/">Express global router for a DRY code</a></li>
+<li><a href="https://lebcit.github.io/posts/markdown-blog-with-ejs/">Markdown blog with EJS</a></li>
+</ol>
+<p>The first post shoes us how to parse an express router to a global router variable. The second one is <strong>very important</strong> to understand the logic behind the process of writing in Markdown and rendering it on the frontend.</p>
+<h3>Modifying archive's route</h3>
+<p>To modify the route on which the list of all the posts is displayed, you just have to change <code class="hljs">/archive</code> on line 13 inside <strong>archiveRoute.js</strong> to whatever suits you. As an example, you can change it to <code class="hljs">/posts</code> and the list will now be available on this route instead of the previous one.</p>
+<blockquote>
+<p><em>Nota Bene : whenever you make a change, always check through the whole app for changes to be made according to the one you're making !</em></p>
+</blockquote>
+<p>Let's say you changed <code class="hljs">/archive</code> to <code class="hljs">/posts</code> in <strong>archiveRoute.js</strong>, you'll have to make the same modification in <strong>postsList.ejs</strong> on line 20, as well as in <strong>menu.ejs</strong> if you have there a link for that.</p>
+<h2>Tags route</h2>
+<p>Under the <strong>routes</strong> folder, the last file is <strong>tagsRoute.js</strong>. This file has 2 tasks :</p>
+<ol>
+<li>Display all the tags in the blog's posts</li>
+<li>Display all the posts for a particular tag</li>
+</ol>
+<p>The first task is accomplished by a function, defined in the <strong>postsByTagCount.js</strong> file under the <strong>functions</strong> folder, that creates an array of the tags from all the posts and sort them alphabetically then count the occurrence of each tag in this tags' array and return the result as an object.<br>
+The function is parsed to a constant, <code class="hljs"><span class="hljs-attribute">postsByTagCount</span></code>, in <strong>tagsRoute.js</strong> on line 3 :</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> postsByTagCount = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../functions/postsByTagCount&quot;</span>)
+</code></pre>
+<p>This constant is passed to the <code class="hljs">/tags</code> route, <code class="hljs"><span class="hljs-variable">postsByTagCount</span>: <span class="hljs-function"><span class="hljs-title">postsByTagCount</span>()</span></code>, where we loop through the resulting object in <strong>postsByTagCount.ejs</strong> on line 18 :</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> property <span class="hljs-keyword">in</span> postsByTagCount)
+</code></pre>
+<p>Then we check inside the loop, on line 20, if each tag exists and it's value is greater than 0, to avoid displaying a null tag in the list of tags if one or more post have no tag(s) :</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">if</span> (property !== <span class="hljs-string">&quot;null&quot;</span>)
+</code></pre>
+<h3>Tag route</h3>
+<p>The second task, leading to the display of all the posts for a particular tag, begins with a simple function living in the <strong>postsByTagList.js</strong> file under the <strong>functions</strong> folder. This function, with a <code class="hljs">(<span class="hljs-name">tag</span>)</code> parameter, filters the posts to retrieve an array of post(s) including the requested tag, otherwise it returns an empty array.<br>
+The function is parsed to a constant, <code class="hljs"><span class="hljs-attribute">postsByTagList</span></code>, in <strong>tagsRoute.js</strong> on line 4 :</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> postsByTagList = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../functions/postsByTagList&quot;</span>)
+</code></pre>
+<p>This constant, combined with the requested parameter (the requested tag) is parsed to another constant on line 24 inside the dynamic route <code class="hljs"><span class="hljs-string">&quot;/tags/:tag&quot;</span></code> :</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> tag = req.<span class="hljs-property">params</span>.<span class="hljs-property">tag</span>
+<span class="hljs-keyword">const</span> postsByTag = <span class="hljs-title function_">postsByTagList</span>(tag)
+</code></pre>
+<p>This final constant, <code class="hljs"><span class="hljs-attribute">postsByTag</span></code>, is passed through the dynamic route as a data object :</p>
+<pre><code class="hljs language-js"><span class="hljs-attr">posts</span>: postsByTag
+</code></pre>
+<p>This data object, the array of post(s) related to a single tag, is sent to the <strong>postsList.ejs</strong> file in the <strong>layout</strong> folder under the <strong>views</strong> folder, where it will be used by the <strong>singlePostPreview.ejs</strong> file in the <strong>components</strong> folder under the <strong>views</strong> folder :</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// postsList.ejs | line 17</span>
+&lt;%- <span class="hljs-title function_">include</span>(<span class="hljs-string">&#x27;../components/singlePostPreview&#x27;</span>) %&gt;
+</code></pre>
+<p>As it's name suggests, <strong>singlePostPreview.ejs</strong> is responsible of the look and feel of each and every post's preview. I'll be talking later on about this file in details.</p>
+<p>A last thing to mention in the dynamic route is that if the returned array is empty, not even one post is related to the requested tag, the 404 error page is rendered.<br>
+Try to hit a tag route that doesn't exists, as an example : <a href="/tags/INEXISTENTTAG">inexistent tag</a>.</p>
+<h3>Modifying the tags route</h3>
+<p>Modifying the tags route is quite simple, all you have to do is to change the path <code class="hljs">/tags</code> in <strong>tagsRoute.js</strong> on line 7 to whatever you desire.<br>
+If you change it to <code class="hljs">/hashtags</code>, the list of all available tags will now be displayed on this route instead of the previous one. If a link to the old path is present in <strong>menu.ejs</strong>, the same modification should be made.</p>
+<h3>Modifying tags' dynamic route</h3>
+<p>The route of each individual tag is defined by a parameter <code class="hljs">/:<span class="hljs-keyword">tag</span></code> in the dynamic route <code class="hljs"><span class="hljs-string">&quot;/tags/:tag&quot;</span></code>. There is absolutely no need to change the parameter by itself !<br>
+Let's say you changed previously <code class="hljs">/tags</code> to <code class="hljs">/hashtags</code>. To keep some logic, you'll have to make the same modification in the dynamic route to <code class="hljs"><span class="hljs-string">&quot;/hashtags/:tag&quot;</span></code>.</p>
+<blockquote>
+<p><em>Nota Bene : whenever you make a change, always check through the whole app for changes to be made according to the one you're making !</em></p>
+</blockquote>
+<p>In this case, the changes to be made are in the following files :</p>
+<ol>
+<li><strong>singlePostPreview.ejs</strong>, in the <strong>components</strong> folder under the <strong>views</strong> folder, on line 41</li>
+<li><strong>postsByTagCount.ejs</strong>, in the <strong>layouts</strong> folder under the <strong>views</strong> folder, on line 22</li>
+<li><strong>postsTemplate.ejs</strong>, in the <strong>layouts</strong> folder under the <strong>views</strong> folder, on line 56</li>
+</ol>
+<p>That's all for archive and tags, see you in the next one.</p>
+</div>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<p class="copyright">
+				App built with ❤️ by
+				<a href="https://lebcit.github.io/">LebCit</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+

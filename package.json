@@ -1,0 +1,15 @@
+{
+  "name": "blog-doc-static-express",
+  "version": "1.0.0",
+  "description": "Blog-Doc static files with express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LebCit",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
