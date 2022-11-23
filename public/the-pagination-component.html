@@ -33,7 +33,7 @@
 		background-position: center;
 	}
 	.post-header .overlay {
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.post-header .overlay h1,
 	.post-header .overlay h2 {
@@ -191,6 +191,91 @@ We know for fact that there is a page before the one we are on, so we just check
 <p>For the third scenario, where the last page is the first page of the blog, the function will not return a value for the page before it since it's the first one, we check that the <code class="hljs"><span class="hljs-attribute">prev_page</span></code> property of <code class="hljs"><span class="hljs-attribute">paginatedPostsList</span></code> is not returned on line 73 with a simple <code class="hljs"><span class="hljs-keyword">else</span></code> and if this condition is true we display a link to the homepage as well as a link to the previous page who's also the homepage, so 2 links to the homepage in different tastes.</p>
 <p>And that's how the pagination component is rendered on the frontend, allowing us to navigate between the blog's pages.</p>
 </div>
+			<style>
+	nav {
+		display: flex;
+		justify-content: center;
+		margin-top: 50px;
+	}
+
+	.pagination {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+	}
+
+	.pagination li {
+		margin: 10px;
+	}
+
+	.default {
+		border-color: #e7e7e7;
+		color: black;
+		text-decoration: none;
+	}
+
+	.default:hover,
+	.default:focus {
+		background: #e7e7e7;
+		text-decoration: underline;
+	}
+
+	.post-link {
+		background-color: #ffc10d;
+		color: #000000;
+		padding: 0.5rem 1rem 0.75rem;
+		border: 5px solid #000000;
+		border-radius: 5px;
+		font-size: 1em;
+		text-decoration: none;
+		display: inline-grid;
+		font-family: "Open Sans", sans-serif;
+	}
+
+	.post-link:hover,
+	.post-link:focus,
+	.post-link:active {
+		text-decoration: underline;
+		background: #000000;
+		color: #ffffff;
+		cursor: pointer;
+	}
+
+	@media (max-width: 48em) {
+		.pagination {
+			flex-direction: column-reverse;
+		}
+		.pagination li {
+			margin: 5px;
+		}
+	}
+</style>
+
+<nav aria-label="pagination">
+	<ul class="pagination">
+		
+		<li>
+			<a class="post-link prev" role="button" 
+				href="/the-main-route.html"  aria-label="Go to the
+				previous post" >
+				<span aria-hidden="true">Previous: The Main Route</span>
+				<span class="hidden">Go to the previous post</span>
+			</a>
+		</li>
+		  
+		<li>
+			<a class="post-link next" role="button" 
+				href="/the-files-route.html"  aria-label="Go to the next post"
+				>
+				<span aria-hidden="true">Next: The files route</span>
+				<span class="hidden">Go to the next post</span>
+			</a>
+		</li>
+		
+	</ul>
+</nav>
+
 		</div>
 	</div>
 </div>
