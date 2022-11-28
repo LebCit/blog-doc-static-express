@@ -106,15 +106,15 @@
 				
 				<br />
 				<span>Tagged</span>
-				
-				<a href="/tags/Blog-Doc" class="post-tag">Blog-Doc</a>
-				
-				<a href="/tags/Blog" class="post-tag">Blog</a>
-				
-				<a href="/tags/Pagination" class="post-tag">Pagination</a>
-				 
+				  
+				<a href="/tags/Blog-Doc.html" class="post-tag">Blog-Doc</a>
+				    
+				<a href="/tags/Blog.html" class="post-tag">Blog</a>
+				    
+				<a href="/tags/Pagination.html" class="post-tag">Pagination</a>
+				   
 			</p>
-			<div><p>One of the functionalities that we have seen in <a href="/the-main-route">The Main Route</a> is how the blog gets paginated under the hood. In this post, we will talk about the pagination component itself and see how it's rendered on the frontend.</p>
+			<div><p>One of the functionalities that we have seen in <a href="/the-main-route.html">The Main Route</a> is how the blog gets paginated under the hood. In this post, we will talk about the pagination component itself and see how it's rendered on the frontend.</p>
 <p>The file <strong>pagination.ejs</strong> in the <strong>components</strong> folder under the <strong>views</strong> folder holds the logic behind the display and the look of the pagination component and is only used by the <strong>postsList.ejs</strong> file in the <strong>layouts</strong> folder under the <strong>views</strong> folder on line 19 :</p>
 <pre><code class="hljs language-js">&lt;% <span class="hljs-keyword">if</span> (paginated) { %&gt; &lt;%- <span class="hljs-title function_">include</span>(<span class="hljs-string">&#x27;../components/pagination&#x27;</span>) %&gt; ... &lt;% } %&gt;
 </code></pre>
@@ -124,7 +124,7 @@
 </code></pre>
 <p>Yes, an <code class="hljs"><span class="hljs-title">.ejs</span></code> file is just <code class="hljs"><span class="hljs-selector-tag">HTML</span></code> in which we can use plain <code class="hljs"><span class="hljs-attribute">JavaScript</span></code> !</p>
 <p>Those styles will only be available when the pagination component is displayed. This is very useful to avoid loading unnecessary styles in the app.</p>
-<p>In <a href="/the-main-route">The Main Route</a> we have seen that the pagination component will only be displayed for the homepage if the length off all the posts is greater than 5 :</p>
+<p>In <a href="/the-main-route.html">The Main Route</a> we have seen that the pagination component will only be displayed for the homepage if the length off all the posts is greater than 5 :</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// /routes/mainRoute.js</span>
 <span class="hljs-keyword">const</span> postsLength = <span class="hljs-title function_">getPosts</span>().<span class="hljs-property">length</span> <span class="hljs-comment">// line 19</span>
 ...
@@ -170,7 +170,7 @@ router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&
 <li>We are on the last page which is not after the homepage</li>
 <li>We are on the last page which is just after the homepage</li>
 </ol>
-<p>In <a href="/the-main-route">The Main Route</a>, we have seen that the function <strong>paginator.js</strong> gives us some values that we can use to paginate our collection of posts, like the actual page, the previous page and the next page. By using this function in <strong>mainRoute.js</strong> on line 35 and passing it to the dynamic route <code class="hljs"><span class="hljs-string">&quot;/page/:actualBlogPage&quot;</span></code> on line 40, we can access those values through the pagination component :</p>
+<p>In <a href="/the-main-route.html">The Main Route</a>, we have seen that the function <strong>paginator.js</strong> gives us some values that we can use to paginate our collection of posts, like the actual page, the previous page and the next page. By using this function in <strong>mainRoute.js</strong> on line 35 and passing it to the dynamic route <code class="hljs"><span class="hljs-string">&quot;/page/:actualBlogPage&quot;</span></code> on line 40, we can access those values through the pagination component :</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// /routes/mainRoute.js</span>
 <span class="hljs-keyword">const</span> paginatedPostsList = <span class="hljs-title function_">paginator</span>(<span class="hljs-title function_">getPosts</span>().<span class="hljs-title function_">slice</span>(<span class="hljs-number">5</span>), actualBlogPage, <span class="hljs-number">5</span>) <span class="hljs-comment">// line 35</span>
 ...
